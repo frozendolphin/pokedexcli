@@ -28,7 +28,7 @@ func simpleREPL() error {
 			fmt.Println("Unknown command")
 			continue
 		}
-		err := val.callback()
+		err := val.callback(&location)
 		if err != nil {
 			return err
 		}
