@@ -11,18 +11,29 @@ func cleanInput(text string) []string {
 	return strings.Fields(strings.ToLower(text))
 }
 
-func simpleREPL() {
+func simpleREPL() error {
 	scanner := bufio.NewScanner(os.Stdin)
+	
 	for {
 		fmt.Print("Pokedex > ")
-		if scanner.Scan() {
-			userinput := scanner.Text()
-			cleaned_slice := cleanInput(userinput)
-			if len(cleaned_slice) == 0 {
-				continue
-			}
-			first_word := cleaned_slice[0]
-			fmt.Println("Your command was:", first_word)
+		scanner.Scan()
+		userinput := scanner.Text()
+		cleaned_slice := cleanInput(userinput)
+		if len(cleaned_slice) == 0 {
+			continue
+		}
+		first_word := cleaned_slice[0]
+		val, ok := getCommands()[first_word]
+		if !ok {
+			fmt.Println("Unknown command")
+			continue
+		}
+		err := val.callback()
+		if err != nil {
+			return err
 		}
 	}
 }
+
+
+
