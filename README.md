@@ -1,1 +1,1 @@
-# Pokedex
+# Pokedex CLI
