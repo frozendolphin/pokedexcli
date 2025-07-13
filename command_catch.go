@@ -11,6 +11,19 @@ import (
 type PokemonDetails struct {
 	BaseExp int `json:"base_experience"`
 	Name string `json:"name"`
+	Height int `json:"height"`
+	Weight int `json:"weight"`
+	Stats []struct {
+		Base_stat int `json:"base_stat"`
+		Stat_name struct {
+			Name string `json:"name"`
+		} `json:"stat"`
+	} `json:"stats"`
+	Types []struct {
+		Type struct {
+			Name string `json:"name"`
+		} `json:"type"`
+	} `json:"types"`
 }
 
 var pokemon_caught = make(map[string]PokemonDetails)
@@ -24,7 +37,7 @@ func commandCatch(location *config, args []string) error {
 
 	url := "https://pokeapi.co/api/v2/pokemon/" + pokemon_name
 
-	if _, ok := pokemon_caught[url]; ok {
+	if _, ok := pokemon_caught[pokemon_name]; ok {
 		fmt.Println("Pokemon already in inventory!")
 		return nil
 	}
@@ -65,9 +78,9 @@ func commandCatch(location *config, args []string) error {
 	}
 	fmt.Println(poke_details.Name, "was caught!")
 
-	pokemon_caught[url] = poke_details
+	pokemon_caught[pokemon_name] = poke_details
 	if !ok {
-		location.TheCache.Add(url, data)
+		location.TheCache.Add(pokemon_name, data)
 	}
 
 	return nil

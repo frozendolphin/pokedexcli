@@ -44,6 +44,11 @@ func getCommands() map[string]cliCommand {
 			description: "Attempt to catch a pokemon that is not in inventory",
 			callback: commandCatch,
 		},
+		"inspect": {
+			name: "inspect",
+			description: "Gives pokemon's stats if in inventory",
+			callback: commandInspect,
+		},
 	}
 }
 
