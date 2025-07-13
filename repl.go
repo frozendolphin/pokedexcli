@@ -28,7 +28,13 @@ func simpleREPL() error {
 			fmt.Println("Unknown command")
 			continue
 		}
-		err := val.callback(&location)
+		var args []string
+		if len(cleaned_slice) > 1 {
+			args = cleaned_slice[1:]
+		} else {
+			args = nil
+		}
+		err := val.callback(&location, args)
 		if err != nil {
 			return err
 		}

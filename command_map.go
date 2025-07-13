@@ -19,16 +19,22 @@ type Location_area_name struct{
 	Url string `json:"url"`
 }
 
-func location_list(url string) error {
-	res, err := http.Get(url)
-	if err != nil {
-		return err
-	}
-	defer res.Body.Close()
+func location_list(location *config, url string) error {
+	var data []byte
+	val, ok := location.TheCache.Get(url)
+	if ok {
+		data = val
+	} else {
+		res, err := http.Get(url)
+		if err != nil {
+			return err
+		}
+		defer res.Body.Close()
 
-	data, err := io.ReadAll(res.Body)
-	if err != nil {
-		return err
+		data, err = io.ReadAll(res.Body)
+		if err != nil {
+			return err
+		}
 	}
 
 	var areas Location_area
@@ -42,13 +48,22 @@ func location_list(url string) error {
 	for _, item := range(areas.Results){
 		fmt.Println(item.Name)
 	}
+
+	if !ok {
+		location.TheCache.Add(url, data)
+	}
 	return  nil
 }
 
-func commandMap(location *config) error {
+func commandMap(location *config, args []string) error {
 	url := location.Next
 	
-	err := location_list(url)
+	if url == "" {
+		fmt.Println("you're on the last page")
+		return nil
+	}
+
+	err := location_list(location, url)
 	if err != nil {
 		return err
 	}
@@ -56,7 +71,7 @@ func commandMap(location *config) error {
 	return nil
 }
 
-func commandMapb(location *config) error {
+func commandMapb(location *config, args []string) error {
 	url := location.Previous
 
 	if url == "" {
@@ -64,7 +79,7 @@ func commandMapb(location *config) error {
 		return nil
 	}
 	
-	err := location_list(url)
+	err := location_list(location, url)
 	if err != nil {
 		return err
 	}
