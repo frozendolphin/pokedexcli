@@ -36,7 +36,7 @@ func simpleREPL() error {
 		}
 		err := val.callback(&location, args)
 		if err != nil {
-			return err
+			fmt.Println("Something went wrong...", err)
 		}
 	}
 }
