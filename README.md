@@ -2,8 +2,6 @@
 
 Pokedex CLI is a command-line application written in Go that allows users to interactively explore Pokémon locations, catch Pokémon, and manage a personal Pokédex using data from the public [PokeAPI](https://pokeapi.co/). The app features a REPL (Read-Eval-Print Loop) interface, caching for API responses, and several commands for exploring and managing Pokémon data.
 
----
-
 ## Features
 
 - **Explore Pokémon locations:** Browse paginated lists of location areas from the Pokémon world.
@@ -13,8 +11,6 @@ Pokedex CLI is a command-line application written in Go that allows users to int
 - **View your Pokédex:** List all Pokémon you have caught so far.
 - **Help and navigation:** Built-in help and navigation commands for ease of use.
 - **Caching:** API responses are cached for 5 minutes to reduce redundant network requests.
-
----
 
 ## Installation
 
@@ -42,8 +38,6 @@ Start the CLI:
 
 You will see a prompt: `Pokedex >` where you can enter commands.
 
----
-
 ## Usage
 
 Type `help` at the prompt to see all available commands:
@@ -68,14 +62,10 @@ Pokedex > inspect pikachu
 Pokedex > exit
 ```
 
----
-
 ## Configuration
 
 - **No environment variables or configuration files are required.**
 - The application uses the public PokeAPI and caches responses in memory for 5 minutes.
-
----
 
 ## Testing
 
@@ -85,8 +75,6 @@ To run the tests:
 go test ./...
 ```
 
----
-
 ## Project Structure
 
 - `main.go` — Entry point, starts the REPL.
@@ -94,8 +82,6 @@ go test ./...
 - `command_*.go` — Individual command implementations.
 - `registry.go` — Command registration and configuration.
 - `internal/pokecache/` — Simple in-memory cache for API responses.
-
----
 
 ## License
 
