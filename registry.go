@@ -46,8 +46,13 @@ func getCommands() map[string]cliCommand {
 		},
 		"inspect": {
 			name: "inspect",
-			description: "Gives pokemon's stats if in inventory",
+			description: "Displays pokemon's stats if in inventory",
 			callback: commandInspect,
+		},
+		"pokedex": {
+			name: "pokedex",
+			description: "Displays all the pokemon in inventory",
+			callback: commandPokedex,
 		},
 	}
 }
